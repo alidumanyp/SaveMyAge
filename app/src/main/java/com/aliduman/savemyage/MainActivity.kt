@@ -10,31 +10,32 @@ import android.widget.EditText
 class MainActivity : AppCompatActivity() {
 
     private lateinit var preferences : SharedPreferences
-    private lateinit var age_button : Button
+    private lateinit var save_button : Button
     private lateinit var age_text : EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        age_button = findViewById(R.id.save_button)
+        save_button = findViewById(R.id.save_button)
         age_text = findViewById(R.id.age_text)
 
         preferences = this.getSharedPreferences("com.aliduman.savemyage", Context.MODE_PRIVATE)
 
         var currentAge = preferences.getInt("age",-1)
 
-        if (currentAge != -1) {
-            age_text.hint = currentAge.toString()
 
-        } else {
-            age_button.setOnClickListener {
+            if (currentAge != -1) { //if user saved age before..
+                age_text.hint = currentAge.toString()
 
-                var ageInput =  Integer.valueOf(age_text.text.toString())
-                preferences.edit().putInt("age", ageInput).apply()
+            } else {//if first time user saved age
+
+                save_button.setOnClickListener {
+
+                    var ageInput =  Integer.valueOf(age_text.text.toString())
+                    preferences.edit().putInt("age", ageInput).apply() //We save it to SharedPreferences.
+
+                }
             }
-
-        }
-
     }
 }
