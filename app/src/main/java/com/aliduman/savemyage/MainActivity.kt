@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
             age_text.hint = currentAge.toString()
 
         } else {
-
             age_button.setOnClickListener {
 
                 var ageInput =  Integer.valueOf(age_text.text.toString())
